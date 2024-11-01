@@ -1,0 +1,30 @@
+[project]
+name = "rislive_py"
+description = "Python client for RIS Live BGP monitoring service"
+version = "0.0.1"
+authors = [{ name = "Tiago Felipe Goncalves", email = "tfgoncalves@xpto.it" }]
+readme = "README.md"
+requires-python = ">=3.12"
+keywords = ["bgp", "ris", "ripe", "monitoring"]
+dependencies = [
+    "websockets",
+    "black",
+    "isort",
+    "pylint",
+    "ruff",
+    "pytest",
+    "yamllint",
+    "uv"
+]
+
+[project.urls]
+documentation = "https://github.com/kiraum/rislive_py/blob/main/README.md"
+repository = "https://github.com/kiraum/rislive_py/"
+
+[tool.pylint.messages_control]
+disable = [
+    "format",
+]
+
+[tool.isort]
+profile = "black"
