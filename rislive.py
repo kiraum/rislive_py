@@ -11,7 +11,7 @@ import signal
 import ssl
 from typing import Any, Dict, Optional
 
-import websockets
+from websockets.legacy.client import WebSocketClientProtocol, connect
 
 
 def validate_rrc(value: str) -> list:
@@ -19,9 +19,7 @@ def validate_rrc(value: str) -> list:
     rrc_list = [rrc.strip() for rrc in value.split(",")]
     for rrc in rrc_list:
         if not re.match(r"^rrc\d{2}$", rrc):
-            raise argparse.ArgumentTypeError(
-                f"Invalid RRC format '{rrc}'. Must be in format 'rrcXX' where X is a digit"
-            )
+            raise argparse.ArgumentTypeError(f"Invalid RRC format '{rrc}'. Must be in format 'rrcXX' where X is a digit")
     return rrc_list
 
 
@@ -48,9 +46,7 @@ def validate_aspath(value: str) -> list:
                         raise ValueError
             validated_paths.append(path)
         except ValueError as exc:
-            raise argparse.ArgumentTypeError(
-                f"Invalid AS path format in '{path}'. Must be comma-separated ASNs"
-            ) from exc
+            raise argparse.ArgumentTypeError(f"Invalid AS path format in '{path}'. Must be comma-separated ASNs") from exc
     return validated_paths
 
 
@@ -60,16 +56,12 @@ def validate_prefix(value: str) -> list:
     validated_prefixes = []
     for prefix in prefix_list:
         if "/" not in prefix:
-            raise argparse.ArgumentTypeError(
-                f"Network prefix '{prefix}' must include mask in CIDR notation (e.g. 192.0.2.0/24 or 2001:db8::/32)"
-            )
+            raise argparse.ArgumentTypeError(f"Network prefix '{prefix}' must include mask in CIDR notation (e.g. 192.0.2.0/24 or 2001:db8::/32)")
         try:
             ipaddress.ip_network(prefix, strict=False)
             validated_prefixes.append(prefix)
         except ValueError as exc:
-            raise argparse.ArgumentTypeError(
-                f"Invalid network prefix format: {prefix}"
-            ) from exc
+            raise argparse.ArgumentTypeError(f"Invalid network prefix format: {prefix}") from exc
     return validated_prefixes
 
 
@@ -84,7 +76,7 @@ class RipeRisStreamer:
             options (argparse.Namespace): Command-line arguments.
         """
         self._options = options
-        self._ws: Optional[websockets.WebSocketClientProtocol] = None
+        self._ws: Optional[WebSocketClientProtocol] = None
         self._sslcontext = ssl.create_default_context()
         self._sslcontext.check_hostname = False
         self._sslcontext.verify_mode = ssl.CERT_NONE
@@ -94,7 +86,7 @@ class RipeRisStreamer:
         """Start streaming data from RIPE RIS Live."""
         uri = "wss://ris-live.ripe.net/v1/ws/?client=RipeRisStreamer"
         logging.debug("Creating websocket connection...")
-        async with websockets.connect(uri, ssl=self._sslcontext) as websocket:
+        async with connect(uri, ssl=self._sslcontext) as websocket:
             self._ws = websocket
             logging.debug("Sending RIS parameters...")
             logging.debug("RIS parameters: %s ", {self._get_ris_params()})
@@ -119,18 +111,10 @@ class RipeRisStreamer:
         optional_params = {
             "host": self._options.filter_host[0] if self._options.filter_host else None,
             "type": self._options.filter_type,
-            "require": (
-                self._options.filter_key[0] if self._options.filter_key else None
-            ),
+            "require": (self._options.filter_key[0] if self._options.filter_key else None),
             "peer": self._options.filter_peer,
-            "path": (
-                ",".join(self._options.filter_aspath)
-                if self._options.filter_aspath
-                else None
-            ),
-            "prefix": (
-                self._options.filter_prefix if self._options.filter_prefix else None
-            ),
+            "path": (",".join(self._options.filter_aspath) if self._options.filter_aspath else None),
+            "prefix": (self._options.filter_prefix if self._options.filter_prefix else None),
         }
 
         params.update({k: v for k, v in optional_params.items() if v is not None})
@@ -143,9 +127,7 @@ class RipeRisStreamer:
         return True
 
 
-async def handle_shutdown(
-    streamer: RipeRisStreamer, loop: asyncio.AbstractEventLoop
-) -> None:
+async def handle_shutdown(streamer: RipeRisStreamer, loop: asyncio.AbstractEventLoop) -> None:
     """Handle shutdown signals gracefully."""
     try:
         print("Disconnecting...")
@@ -160,9 +142,7 @@ async def handle_shutdown(
 
 async def main() -> int:
     """Main function to run the RIPE RIS Live streamer."""
-    parser = argparse.ArgumentParser(
-        description="Monitor the streams from RIPE RIS Live."
-    )
+    parser = argparse.ArgumentParser(description="Monitor the streams from RIPE RIS Live.")
 
     parser.add_argument(
         "-H",
