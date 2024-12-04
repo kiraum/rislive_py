@@ -18,7 +18,7 @@ mccabe==0.7.0
     # via pylint
 mypy-extensions==1.0.0
     # via black
-packaging==24.1
+packaging==24.2
     # via
     #   black
     #   pytest
@@ -32,19 +32,19 @@ platformdirs==4.3.6
     #   pylint
 pluggy==1.5.0
     # via pytest
-pylint==3.3.1
+pylint==3.3.2
     # via rislive-py (pyproject.toml)
-pytest==8.3.3
+pytest==8.3.4
     # via rislive-py (pyproject.toml)
 pyyaml==6.0.2
     # via yamllint
-ruff==0.7.1
+ruff==0.8.1
     # via rislive-py (pyproject.toml)
 tomlkit==0.13.2
     # via pylint
-uv==0.4.29
+uv==0.5.6
     # via rislive-py (pyproject.toml)
-websockets==13.1
+websockets==14.1
     # via rislive-py (pyproject.toml)
 yamllint==1.35.1
     # via rislive-py (pyproject.toml)
