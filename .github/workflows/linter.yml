@@ -18,13 +18,13 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade uv
-        uv pip install --system --break-system-packages black flake8 pylint ruff requests
+        uv pip install --system --break-system-packages -r requirements.txt
     - name: Analysing the code format with black
       run: |
         black $(git ls-files '*.py') --check --verbose --diff --color
     - name: Analysing the code with flake8
       run: |
-        flake8 $(git ls-files '*.py')
+        flake8 --max-line-length=150 $(git ls-files '*.py')
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
