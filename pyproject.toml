@@ -41,3 +41,6 @@ max-line-length = 150
 
 [tool.flake8]
 max-line-length = 150
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
