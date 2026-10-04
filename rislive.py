@@ -9,9 +9,11 @@ import logging
 import re
 import signal
 import ssl
-from typing import Any, Dict, Optional
+from typing import Any
 
 from websockets.legacy.client import WebSocketClientProtocol, connect
+
+logger = logging.getLogger(__name__)
 
 
 def validate_rrc(value: str) -> list:
@@ -76,7 +78,7 @@ class RipeRisStreamer:
             options (argparse.Namespace): Command-line arguments.
         """
         self._options = options
-        self._ws: Optional[WebSocketClientProtocol] = None
+        self._ws: WebSocketClientProtocol | None = None
         self._sslcontext = ssl.create_default_context()
         self._sslcontext.check_hostname = False
         self._sslcontext.verify_mode = ssl.CERT_NONE
@@ -85,23 +87,23 @@ class RipeRisStreamer:
     async def start_streaming(self) -> None:
         """Start streaming data from RIPE RIS Live."""
         uri = "wss://ris-live.ripe.net/v1/ws/?client=RipeRisStreamer"
-        logging.debug("Creating websocket connection...")
+        logger.debug("Creating websocket connection...")
         async with connect(uri, ssl=self._sslcontext) as websocket:
             self._ws = websocket
-            logging.debug("Sending RIS parameters...")
-            logging.debug("RIS parameters: %s ", {self._get_ris_params()})
+            logger.debug("Sending RIS parameters...")
+            logger.debug("RIS parameters: %s ", {self._get_ris_params()})
             await websocket.send(self._get_ris_params())
             print("Listening...")
-            logging.debug("Starting the reception loop...")
+            logger.debug("Starting the reception loop...")
             async for message in websocket:
                 try:
                     print(message)
                 except ValueError as e:
-                    print(f"Error processing message: {str(e)}")
+                    print(f"Error processing message: {e!s}")
 
     def _get_ris_params(self) -> str:
         """Generate RIS parameters based on command-line options."""
-        params: Dict[str, Any] = {
+        params: dict[str, Any] = {
             "socketOptions": {"includeRaw": bool(self._options.include_raw)},
             "moreSpecific": bool(self._options.more_specific),
             "lessSpecific": bool(self._options.less_specific),
@@ -133,7 +135,7 @@ async def handle_shutdown(streamer: RipeRisStreamer, loop: asyncio.AbstractEvent
         print("Disconnecting...")
         await streamer.disconnect()
     except ConnectionError as e:
-        print(f"Error during disconnect: {str(e)}")
+        print(f"Error during disconnect: {e!s}")
     print("Shutting down...")
     for task in asyncio.all_tasks(loop):
         if task is not asyncio.current_task():
@@ -249,7 +251,7 @@ async def main() -> int:
             except asyncio.CancelledError:
                 break
             except ConnectionError as e:
-                print(f"Streamer encountered an error: {str(e)}")
+                print(f"Streamer encountered an error: {e!s}")
     except asyncio.CancelledError:
         pass
 
