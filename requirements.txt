@@ -2,7 +2,7 @@
 #    uv pip compile pyproject.toml
 astroid==4.3.3
     # via pylint
-black==26.10.0
+black==26.10.1
     # via rislive-py (pyproject.toml)
 click==8.5.0
     # via black
