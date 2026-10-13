@@ -52,7 +52,7 @@ pytokens==0.4.1
     # via black
 pyyaml==6.0.3
     # via yamllint
-ruff==0.16.10
+ruff==0.17.0
     # via rislive-py (pyproject.toml)
 tomlkit==0.15.1
     # via pylint
