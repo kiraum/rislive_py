@@ -10,7 +10,7 @@ dill==0.4.1
     # via pylint
 flake8==7.4.1
     # via rislive-py (pyproject.toml)
-iniconfig==2.3.0
+iniconfig==2.3.1
     # via pytest
 isort==9.0.2
     # via
