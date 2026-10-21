@@ -56,7 +56,7 @@ ruff==0.16.10
     # via rislive-py (pyproject.toml)
 tomlkit==0.15.1
     # via pylint
-uv==0.12.23
+uv==0.13.4
     # via rislive-py (pyproject.toml)
 websockets==17.2
     # via rislive-py (pyproject.toml)
