@@ -8,7 +8,7 @@ click==8.5.0
     # via black
 dill==0.4.1
     # via pylint
-flake8==7.4.1
+flake8==7.5.0
     # via rislive-py (pyproject.toml)
 iniconfig==2.3.1
     # via pytest
