@@ -4,11 +4,11 @@ astroid==4.3.4
     # via pylint
 black==26.10.1
     # via rislive-py (pyproject.toml)
-click==8.5.0
+click==8.5.1
     # via black
 dill==0.4.1
     # via pylint
-flake8==7.4.1
+flake8==7.5.0
     # via rislive-py (pyproject.toml)
 iniconfig==2.3.1
     # via pytest
@@ -20,7 +20,7 @@ mccabe==0.7.0
     # via
     #   flake8
     #   pylint
-mypy-extensions==1.1.0
+mypy-extensions==1.2.0
     # via
     #   black
     #   isort
@@ -32,7 +32,7 @@ pathspec==1.1.1
     # via
     #   black
     #   yamllint
-platformdirs==4.13.5
+platformdirs==4.14.5
     # via
     #   black
     #   pylint
@@ -40,25 +40,25 @@ pluggy==1.7.0
     # via pytest
 pycodestyle==2.15.0
     # via flake8
-pyflakes==4.0.3
+pyflakes==4.1.0
     # via flake8
 pygments==2.21.0
     # via pytest
-pylint==4.1.3
+pylint==4.1.4
     # via rislive-py (pyproject.toml)
-pytest==9.1.1
+pytest==9.2.0
     # via rislive-py (pyproject.toml)
 pytokens==0.4.1
     # via black
 pyyaml==6.0.3
     # via yamllint
-ruff==0.17.2
+ruff==0.17.5
     # via rislive-py (pyproject.toml)
 tomlkit==0.15.2
     # via pylint
-uv==0.13.5
+uv==0.13.8
     # via rislive-py (pyproject.toml)
-websockets==17.3
+websockets==17.4
     # via rislive-py (pyproject.toml)
 yamllint==1.38.0
     # via rislive-py (pyproject.toml)
