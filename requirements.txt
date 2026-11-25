@@ -24,7 +24,7 @@ mypy-extensions==1.2.0
     # via
     #   black
     #   isort
-packaging==26.3
+packaging==26.4
     # via
     #   black
     #   pytest
@@ -32,7 +32,7 @@ pathspec==1.1.1
     # via
     #   black
     #   yamllint
-platformdirs==4.14.5
+platformdirs==4.14.8
     # via
     #   black
     #   pylint
@@ -50,13 +50,13 @@ pytest==9.2.0
     # via rislive-py (pyproject.toml)
 pytokens==0.4.1
     # via black
-pyyaml==6.0.3
+pyyaml==6.0.4
     # via yamllint
-ruff==0.17.5
+ruff==0.17.6
     # via rislive-py (pyproject.toml)
-tomlkit==0.15.2
+tomlkit==0.15.3
     # via pylint
-uv==0.13.8
+uv==0.13.10
     # via rislive-py (pyproject.toml)
 websockets==17.4
     # via rislive-py (pyproject.toml)
